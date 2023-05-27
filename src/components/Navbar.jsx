@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Navbar = () => {
+const Navbar = ({handler}) => {
   return (
     <section className="bg-black py-4">
     <div className="flex flex-col items-center space-y-4 ">
@@ -9,6 +9,7 @@ const Navbar = () => {
   </h1>
 <input type="text"
 className="outline-none border-none rounded-sm shadow-md"
+onChange={(e)=>{handler(e.target.value)}}
 />
       </div>  
 

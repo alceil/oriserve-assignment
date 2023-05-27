@@ -9,6 +9,7 @@ function App() {
   const [query, setQuery] = useState(""); // user search query
   // const [uri, setUri] = useState(GET_RECENTS); // api base uri
   const [hasMore, setHasMore] = useState(true); 
+  const baseURL = "https://www.flickr.com/services/rest/";
 
   const handleInfiniteScroll = () => {
     if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
@@ -16,19 +17,42 @@ function App() {
     }
 };
 
+
+const getURL = (method) => {
+  let url = `${baseURL}?method=${method}&format=json&nojsoncallback=1`;
+  return url;
+};
+
 useEffect(() => {
     window.addEventListener('scroll', handleInfiniteScroll);
 });
+
+const handleSearch = async (enquiry) => {
+  // console.log(enquiry);
+  // window.scrollTo(0, 0); // scroll to top on search
+  // if (enquiry.length === 0) {
+  //   setUri(GET_RECENTS);
+  // } else {
+  //   setUri(GET_SEARCH);
+  // }
+
+  setPhotoList([]);
+
+  setQuery(enquiry);
+  setPage(1);
+};
 
   useEffect(() => {
 
     const fetchData = async () => {
       setLoading(true);
-      let { data } = await axios.get(process.env.REACT_APP_FLICKR_BASE_RECENT_API, {
+      const url = getURL(  query ? "flickr.photos.search" : "flickr.photos.getRecent");
+      // https://www.flickr.com/services/rest/?method=flickr.photos.getRecent&per_page=60&format=json&nojsoncallback=1"
+      let { data } = await axios.get(url, {
         params: {
           api_key:process.env.REACT_APP_FLICKR_KEY,
           page,
-          text: "",
+          text: query,
           per_page: "20",
           format: "json",
         },
@@ -41,13 +65,13 @@ useEffect(() => {
     };
 
     fetchData();
-  }, [page]);
+  }, [page,query]);
 
   
 
   return (
     <div className="container mx-auto space-y-4">
-<Navbar/>
+<Navbar handler={handleSearch}/>
 
 
 <div className="flex justify-center items-center h-screen">
