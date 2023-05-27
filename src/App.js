@@ -97,7 +97,37 @@ src={`https://live.staticflickr.com/${server}/${id}_${secret}_w.jpg`}
   )
 }
 </div>
+<div
+  id="modal"
+  class="fixed inset-0 flex items-center justify-center z-50 "
+>
+  <div
+    class="fixed inset-0 bg-gray-900 opacity-75"
+  ></div>
 
+  <div class="bg-white w-1/2 p-6 rounded-lg">
+    <button
+      id="close-modal"
+      class="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="h-6 w-6"
+      >
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+
+    <p>This is the modal content. You can add any HTML elements here.</p>
+  </div>
+</div>
 </div>
 
     </div>
